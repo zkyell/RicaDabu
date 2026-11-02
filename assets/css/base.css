@@ -1,0 +1,37 @@
+:root{--r:#C8301F;--dr:#A3150C;--bg:#FFF6F1;--pk:#FCE3DC;--gy:#EFE6E1;--t:#241713;--m:#7b6259;--l:#EBD9CF}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#e6d8d0;color:var(--t);line-height:1.4}
+button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
+img{display:block;max-width:100%}
+a{color:inherit}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid #D9531E;outline-offset:2px}
+#app{max-width:430px;min-height:100vh;margin:0 auto;background:var(--bg);position:relative;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.chip{display:inline-flex;gap:8px;align-items:center;padding:8px 18px;border-radius:999px;font-weight:600;font-size:14px}
+.pk{background:var(--pk);color:#6b3a2e;letter-spacing:.4px;box-shadow:0 2px 8px rgba(200,48,31,.12)}
+.gy{background:var(--gy);color:#4a3830}
+.ib{width:42px;height:42px;border-radius:50%;background:var(--gy);display:grid;place-items:center;font-size:18px;flex:none}
+.ph{position:relative;overflow:hidden;background:linear-gradient(135deg,#e8672f,#a3150c);display:grid;place-items:center;font-size:38px;width:100%;height:100%}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+.top{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;position:sticky;top:0;z-index:20;background:rgba(255,246,241,.96);backdrop-filter:blur(8px)}
+.br{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px;color:var(--dr)}
+.br img{width:34px;height:34px;border-radius:50%;background:#fff;padding:2px;object-fit:contain}
+.rt{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--dr)}
+.av{width:36px;height:36px;border-radius:50%;background:var(--dr);display:grid;place-items:center}
+.bk{width:38px;height:38px;font-size:22px;color:var(--dr)}
+#detail .br{color:#4a3830;font-size:17px}
+
+.cbar,.bn,.buy{position:fixed;left:50%;transform:translateX(-50%);width:min(430px,100%);z-index:30}
+.cbar{display:none;bottom:74px;width:min(398px,calc(100% - 32px));background:var(--r);color:#fff;border-radius:22px;padding:10px 10px 10px 14px;align-items:center;gap:12px;box-shadow:0 10px 26px rgba(200,48,31,.4)}
+.cbar.on{display:flex}
+.cbar div{flex:1;line-height:1.2}.cbar b{font-size:15px;display:block}.cbar small{font-size:11px;opacity:.9}
+.cbar>button{background:#fff;color:var(--r);font-weight:800;font-size:13px;padding:11px 14px;border-radius:999px}
+.bag{position:relative;width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.2);display:grid;place-items:center}
+.bag em{position:absolute;top:-6px;right:-6px;background:#fff;color:var(--r);font:800 11px 'Plus Jakarta Sans';min-width:18px;height:18px;border-radius:9px;display:grid;place-items:center;font-style:normal}
+.bn{bottom:0;background:#fff;display:flex;justify-content:space-around;padding:8px 0 10px;border-radius:22px 22px 0 0;box-shadow:0 -4px 20px rgba(46,26,18,.08)}
+.bn button{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;font-weight:700;color:#9a867d;padding:4px 14px;border-radius:14px}
+.bn button span{filter:grayscale(1);font-size:20px}
+.bn button.on{color:var(--r);background:var(--pk)}.bn button.on span{filter:none}
+
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition:none!important}}

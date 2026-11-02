@@ -1,0 +1,5 @@
+Taruh foto makanan (.jpg) di folder ini. Nama file harus sama dengan kolom "image" di tabel menu_items:
+hero-ikan-bakar.jpg, nasi-ayam-rica.jpg, nasi-ayam-bakar.jpg, nasi-cakalang-rica.jpg,
+nasi-ikan-bakar.jpg, rahang-tuna.jpg, es-teh.jpg, teh-hangat.jpg, es-jeruk.jpg, lemon-tea.jpg,
+kopi-susu.jpg, air-mineral.jpg, perkedel-jagung.jpg, tumis-kangkung.jpg, tahu-tempe.jpg,
+dabu-dabu.jpg, sambal-rica.jpg
