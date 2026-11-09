@@ -39,6 +39,18 @@ function sb(string $method, string $path, ?array $body = null, array $extra = []
     return ['code' => $code, 'data' => json_decode($res ?: 'null', true)];
 }
 
+// Penjelasan singkat kenapa Supabase gagal (tanpa membocorkan key), untuk pesan error.
+function sb_problem(int $code): string {
+    if (SUPABASE_URL === '' || SUPABASE_KEY === '')
+        return 'SUPABASE_URL / SUPABASE_KEY belum diisi di Environment Variables hosting.';
+    return match (true) {
+        $code === 0               => 'server tidak bisa terhubung ke ' . (parse_url(SUPABASE_URL, PHP_URL_HOST) ?: 'Supabase') . '.',
+        $code === 401, $code === 403 => 'SUPABASE_KEY ditolak (key salah atau bukan secret key).',
+        $code === 404             => 'tabel menu_items tidak ditemukan (schema.sql belum dijalankan / URL proyek salah).',
+        default                   => 'Supabase membalas HTTP ' . $code . '.',
+    };
+}
+
 // ---------- Supabase Storage (untuk foto bukti pembayaran) ----------
 const BUKTI_BUCKET = 'bukti-bayar';
 

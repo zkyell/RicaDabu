@@ -31,7 +31,7 @@ if (!isset(payment_methods()[$method]))
 
 // Harga selalu diambil dari database, bukan dari browser (supaya tidak bisa dimanipulasi).
 $r = sb('GET', 'menu_items?select=id,name,price,category&is_available=eq.true');
-if ($r['code'] !== 200) fail(502, 'Gagal membaca menu');
+if ($r['code'] !== 200) fail(502, 'Gagal membaca menu: ' . sb_problem($r['code']));
 $menu = [];
 $addons = [];
 foreach ($r['data'] as $m) {
