@@ -15,7 +15,7 @@ include __DIR__ . '/includes/header.php';
   <header class="top">
     <a class="bk" href="menu.php" aria-label="Kembali" style="text-decoration:none;display:grid;place-items:center">←</a>
     <div class="br"><img src="assets/images/logoricadabu.png" alt=""><b>Detail Menu</b></div>
-    <button class="av" aria-label="Akun"><svg viewBox="0 0 24 24" width="18" fill="#fff"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></button>
+    <a class="av" href="profil.php" aria-label="Profil"><svg viewBox="0 0 24 24" width="18" fill="#fff"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></a>
   </header>
   <div class="db">
     <div class="sp"><span class="chip gy">🍴 Khas Manado Asli</span><button class="ib" id="fav" aria-label="Favorit">♡</button></div>

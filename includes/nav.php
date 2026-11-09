@@ -1,6 +1,7 @@
+<?php $navOn = $navOn ?? 'home'; ?>
 <nav class="bn" id="bn">
-  <button class="on" data-n="home"><span>🏠</span>Beranda</button>
-  <button data-n="menu"><span>🍴</span>Menu</button>
-  <button data-n="cart"><span>🧾</span>Pesanan</button>
-  <button data-n="prof"><span>👤</span>Profil</button>
+  <a class="<?= $navOn === 'home' ? 'on' : '' ?>" href="menu.php"><span>🏠</span>Beranda</a>
+  <a class="<?= $navOn === 'cart' ? 'on' : '' ?>" href="checkout.php"><span>🛍</span>Keranjang<em class="nb" id="navQty" hidden></em></a>
+  <a class="<?= $navOn === 'orders' ? 'on' : '' ?>" href="riwayat.php"><span>🧾</span>Pesanan</a>
+  <a class="<?= $navOn === 'prof' ? 'on' : '' ?>" href="profil.php"><span>👤</span>Profil</a>
 </nav>

@@ -1,0 +1,16 @@
+{
+  "regions": ["sin1"],
+  "functions": {
+    "api/index.php": {
+      "runtime": "vercel-php@0.7.3",
+      "maxDuration": 30
+    }
+  },
+  "routes": [
+    { "src": "/(config|core|includes|database|\\.git)(/.*)?", "status": 404 },
+    { "src": "/(.*)\\.(env|sql|md|htaccess)$", "status": 404 },
+    { "src": "/admin", "status": 308, "headers": { "Location": "/admin/" } },
+    { "src": "/assets/(.*)", "headers": { "Cache-Control": "public, max-age=86400" }, "dest": "/assets/$1" },
+    { "src": "/(.*)", "dest": "/api/index.php" }
+  ]
+}

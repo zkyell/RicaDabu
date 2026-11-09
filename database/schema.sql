@@ -1,4 +1,8 @@
--- Jalankan di Supabase: SQL Editor > New query > Run
+-- ============================================================
+--  RICA DABU – Skema database lengkap (instalasi BARU)
+--  Jalankan di Supabase: SQL Editor > New query > Run
+--  Kalau tabel lama sudah ada, jalankan upgrade-pembayaran.sql saja.
+-- ============================================================
 
 create table menu_items (
   id bigint generated always as identity primary key,
@@ -15,11 +19,28 @@ create table menu_items (
 
 create table orders (
   id bigint generated always as identity primary key,
+  code text unique,                         -- kode pesanan untuk pelanggan, contoh RD-7KQ2MX
   customer_name text not null,
   phone text not null,
+  order_type text not null default 'dine_in'
+    check (order_type in ('dine_in','takeaway','delivery')),
+  table_no text,                            -- nomor meja (makan di tempat)
+  address text,                             -- alamat (diantar)
+  note text,                                -- catatan umum pesanan
+  subtotal integer not null default 0,
+  delivery_fee integer not null default 0,
   total integer not null,
-  status text not null default 'baru',   -- baru, diproses, selesai, batal
-  created_at timestamptz not null default now()
+  status text not null default 'baru'
+    check (status in ('baru','diproses','siap','diantar','selesai','batal')),
+  payment_method text not null default 'tunai'
+    check (payment_method in ('tunai','qris','transfer','ewallet','midtrans')),
+  payment_status text not null default 'belum_bayar'
+    check (payment_status in ('belum_bayar','menunggu_verifikasi','lunas','ditolak','gagal')),
+  payment_proof text,                       -- path bukti bayar di Storage (bucket bukti-bayar)
+  payment_ref text,                         -- id transaksi Midtrans / keterangan
+  paid_at timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
 );
 
 create table order_items (
@@ -34,11 +55,25 @@ create table order_items (
   note text
 );
 
+create index orders_created_idx on orders (created_at desc);
+create index order_items_order_idx on order_items (order_id);
+
+-- updated_at otomatis
+create or replace function set_updated_at() returns trigger language plpgsql as $$
+begin new.updated_at = now(); return new; end $$;
+create trigger orders_updated before update on orders
+  for each row execute function set_updated_at();
+
 -- Keamanan: RLS aktif tanpa policy publik. Browser (anon key) tidak bisa
 -- membaca/menulis. Hanya PHP (secret/service key) yang bisa mengakses.
 alter table menu_items enable row level security;
 alter table orders enable row level security;
 alter table order_items enable row level security;
+
+-- Tempat menyimpan foto bukti pembayaran (privat, hanya bisa dibuka lewat admin)
+insert into storage.buckets (id, name, public)
+values ('bukti-bayar', 'bukti-bayar', false)
+on conflict (id) do nothing;
 
 insert into menu_items (name, price, category, description, image, emoji, is_hot, sort) values
 ('Nasi Ayam Rica',20000,'Makanan','Ayam empuk dengan sambal rica pedas gurih, disajikan dengan nasi hangat.','nasi-ayam-rica','🍛',true,1),
