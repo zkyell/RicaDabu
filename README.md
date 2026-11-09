@@ -11,7 +11,7 @@ Splash → Menu → Detail menu → Keranjang → **Checkout** (makan di tempat 
 | Metode | Cara kerja | Konfirmasi |
 |---|---|---|
 | Tunai | Bayar di kasir / ke kurir (COD) | Kasir klik "Tandai lunas" |
-| QRIS | QRIS statis toko (`assets/images/qris.png`) | Pelanggan upload bukti → kasir verifikasi |
+| QRIS | QRIS GoPay Merchant (`assets/images/qris-kode.png`, poster `qris.jpg`) | Pelanggan upload bukti → kasir verifikasi |
 | Transfer Bank | Daftar rekening di `config/toko.php` | Pelanggan upload bukti → kasir verifikasi |
 | E-Wallet | DANA/GoPay/OVO di `config/toko.php` | Pelanggan upload bukti → kasir verifikasi |
 | Bayar Online (opsional) | Midtrans Snap: QRIS dinamis, VA, e-wallet, kartu | Otomatis lewat webhook |
@@ -23,7 +23,7 @@ Splash → Menu → Detail menu → Keranjang → **Checkout** (makan di tempat 
 2. **Konfigurasi** – salin `config/.env.example` → `config/.env`, isi `SUPABASE_URL`, `SUPABASE_KEY`,
    dan **`ADMIN_PASSWORD`**. Di Vercel isi di *Environment Variables*.
 3. **Data toko & rekening** – edit `config/toko.php` (nomor rekening, e-wallet, WhatsApp, ongkir, jam buka).
-4. **QRIS** – simpan gambar QRIS asli toko sebagai `assets/images/qris.png`
+4. **QRIS** – kode QR ada di `assets/images/qris-kode.png` (poster lengkap: `qris.jpg`), data merchant di `config/toko.php`
    (selama file belum ada, opsi QRIS otomatis disembunyikan).
 5. **Midtrans (opsional)** – isi `MIDTRANS_SERVER_KEY` & `MIDTRANS_CLIENT_KEY` (Sandbox dulu untuk uji coba).
    Di dashboard Midtrans set *Payment Notification URL* ke `https://DOMAIN-KAMU/api/midtrans-notify.php`.

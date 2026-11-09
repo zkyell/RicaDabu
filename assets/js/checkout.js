@@ -18,7 +18,7 @@ function render(){
   $("rowFee").hidden = val("order_type")!=="delivery";
   $("sFee").textContent = fee ? rp(fee) : "Gratis";
   $("sTot").textContent = $("bTot").textContent = rp(sub+fee);
-  form.hidden = !cart.length; document.querySelector(".bar").hidden = !cart.length;
+  form.hidden = !cart.length; $("side").hidden = !cart.length;
 }
 
 $("items").onclick = e => {
@@ -34,6 +34,9 @@ function syncType(){
   document.querySelectorAll("[data-for]").forEach(d => d.hidden = d.dataset.for !== t);
   const cash = form.querySelector("[name=payment_method][value=tunai]");
   $("cashHint").hidden = !(t==="delivery" && cash && cash.checked);
+  // Tampilkan kartu QRIS hanya saat QRIS dipilih
+  const pm = val("payment_method");
+  document.querySelectorAll("[data-pay]").forEach(d => d.hidden = d.dataset.pay !== pm);
   render();
 }
 form.addEventListener("change", syncType);

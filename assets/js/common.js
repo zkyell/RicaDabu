@@ -14,11 +14,10 @@ const Cart    = store("rd_cart", []);     // isi keranjang
 const MyOrders = store("rd_orders", []);  // kode pesanan yang pernah dibuat di HP ini
 const Profile = store("rd_profile", {});  // nama, HP, alamat pelanggan
 
-// Angka kecil di ikon Keranjang pada navigasi bawah
+// Angka kecil di ikon Keranjang (navigasi bawah & header desktop)
 function navBadge(){
-  const b = $("navQty"); if(!b) return;
   const n = Cart.get().reduce((a,c)=>a+c.qty,0);
-  b.textContent = n; b.hidden = n < 1;
+  document.querySelectorAll("[data-qty]").forEach(b => { b.textContent = n; b.hidden = n < 1; });
 }
 navBadge();
 

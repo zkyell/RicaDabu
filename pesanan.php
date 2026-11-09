@@ -12,8 +12,8 @@ include __DIR__ . '/includes/header.php';
 
 if (!$o): ?>
 <main class="pg">
-  <header class="top"><a class="bk" href="riwayat.php" aria-label="Kembali">←</a><div class="br"><b>Status Pesanan</b></div><span style="width:38px"></span></header>
-  <section class="blk empty-st"><p class="big">🔎</p><h2>Pesanan tidak ditemukan</h2>
+  <header class="top"><a class="bk" href="riwayat.php" aria-label="Kembali"><?= icon('back') ?></a><div class="br"><b>Status Pesanan</b></div><span class="m-only" style="width:44px"></span></header>
+  <section class="blk empty-st narrow"><p class="big">🔎</p><h2>Pesanan tidak ditemukan</h2>
     <p>Periksa lagi kode pesananmu (contoh: RD-7KQ2MX).</p><a class="red btn" href="riwayat.php">Lihat pesanan saya</a></section>
 </main>
 <?php include __DIR__ . '/includes/nav.php'; include __DIR__ . '/includes/footer.php'; exit; endif;
@@ -30,10 +30,12 @@ $waText = "Halo Rica Dabu, saya {$o['customer_name']} dengan pesanan {$o['code']
 ?>
 <main class="pg" id="order" data-code="<?= e($o['code']) ?>" data-sig="<?= e($st . '|' . $ps) ?>">
   <header class="top">
-    <a class="bk" href="riwayat.php" aria-label="Kembali">←</a>
+    <a class="bk" href="riwayat.php" aria-label="Kembali"><?= icon('back') ?></a>
     <div class="br"><b>Status Pesanan</b></div>
-    <a class="ib sm" href="<?= e(wa_link($waText)) ?>" target="_blank" rel="noopener" aria-label="Hubungi kasir via WhatsApp">💬</a>
+    <a class="ib" href="<?= e(wa_link($waText)) ?>" target="_blank" rel="noopener" aria-label="Hubungi kasir via WhatsApp"><?= icon('chat', 20) ?></a>
   </header>
+  <div class="cols">
+  <div class="col-main">
 
 <?php if (isset($_GET['baru'])): ?>
   <div class="ok-banner" role="status"><b>Pesanan berhasil dibuat!</b> Simpan kode ini untuk melacak pesananmu.</div>
@@ -85,9 +87,16 @@ $waText = "Halo Rica Dabu, saya {$o['customer_name']} dengan pesanan {$o['code']
 
     <?php if ($ps !== 'menunggu_verifikasi'): ?>
       <?php if ($pm === 'qris'): ?>
-    <div class="qris"><img src="<?= e($s['qris']['gambar']) ?>" alt="Kode QRIS <?= e($s['qris']['nama_merchant']) ?>">
-      <b><?= e($s['qris']['nama_merchant']) ?></b><small>Scan dengan aplikasi bank atau e-wallet apa pun, lalu masukkan nominal <?= rp($o['total']) ?>.</small>
-      <a class="lnk" href="<?= e($s['qris']['gambar']) ?>" download="QRIS-RicaDabu">Simpan gambar QRIS</a></div>
+    <?php $q = $s['qris']; ?>
+    <div class="qris">
+      <div class="qhead"><span class="qlogo">QRIS</span><small>QR Code Standar Pembayaran Nasional</small></div>
+      <b class="qname"><?= e($q['nama_merchant']) ?></b>
+      <small>NMID: <?= e($q['nmid'] ?? '-') ?> · <?= e($q['penyedia'] ?? '') ?></small>
+      <img src="<?= e($q['gambar']) ?>" alt="Kode QRIS <?= e($q['nama_merchant']) ?>" width="260" height="260">
+      <div class="qpay">Bayar tepat <b><?= rp($o['total']) ?></b></div>
+      <small>Scan pakai GoPay, BCA, Mandiri, BNI, BRI, DANA, OVO, ShopeePay &amp; bank lainnya.</small>
+      <a class="lnk dl" href="<?= e($q['poster'] ?? $q['gambar']) ?>" download="QRIS-RicaDabu.jpg"><?= icon('download', 16) ?> Simpan gambar QRIS</a>
+    </div>
       <?php else: foreach (($pm === 'transfer' ? $s['transfer']['rekening'] : $s['ewallet']['akun']) as $a): ?>
     <div class="acc"><span class="ab"><?= e($a['bank'] ?? $a['nama']) ?></span>
       <div><b><?= e($a['nomor']) ?></b><small>a.n. <?= e($a['atas_nama']) ?></small></div>
@@ -109,6 +118,8 @@ $waText = "Halo Rica Dabu, saya {$o['customer_name']} dengan pesanan {$o['code']
 <?php endif; ?>
   </section>
 
+  </div>
+  <aside class="col-side">
   <section class="blk">
     <h2>Detail pesanan</h2>
     <dl class="meta">
@@ -129,7 +140,9 @@ $waText = "Halo Rica Dabu, saya {$o['customer_name']} dengan pesanan {$o['code']
     </div>
   </section>
 
-  <a class="wa" href="<?= e(wa_link($waText)) ?>" target="_blank" rel="noopener">💬 Hubungi kasir lewat WhatsApp</a>
+  <a class="wa" href="<?= e(wa_link($waText)) ?>" target="_blank" rel="noopener"><?= icon('chat', 18) ?> Hubungi kasir lewat WhatsApp</a>
+  </aside>
+  </div>
 </main>
 <div id="toast" role="status"></div>
 <?php include __DIR__ . '/includes/nav.php'; include __DIR__ . '/includes/footer.php'; ?>

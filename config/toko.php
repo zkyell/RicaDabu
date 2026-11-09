@@ -22,13 +22,18 @@ return [
     ],
     'qris' => [
         'aktif'  => true,
-        // Taruh gambar QRIS statis toko di assets/images/qris.png
-        // Selama file itu belum ada, opsi QRIS otomatis disembunyikan.
-        'gambar' => 'assets/images/qris.png',
-        'nama_merchant' => 'RICA DABU MANADO',
+        // Kode QR saja (dipotong dari poster) – tampil besar di checkout & halaman status pesanan
+        'gambar' => 'assets/images/qris-kode.png',
+        // Poster QRIS lengkap dari GoPay Merchant – untuk tombol "Simpan gambar QRIS"
+        'poster' => 'assets/images/qris.jpg',
+        'nama_merchant' => 'VANIA EWVANGELINA ABIGAIL',
+        'nmid'     => 'ID1026631209248',
+        'penyedia' => 'GoPay Merchant',
     ],
+    // Transfer & e-wallet dimatikan karena nomornya masih contoh (0000…).
+    // Isi nomor asli dulu, baru ubah 'aktif' => true.
     'transfer' => [
-        'aktif' => true,
+        'aktif' => false,
         'rekening' => [
             ['bank' => 'BRI',     'nomor' => '0000-01-000000-50-0', 'atas_nama' => 'Rica Dabu'],
             ['bank' => 'BNI',     'nomor' => '0000000000',          'atas_nama' => 'Rica Dabu'],
@@ -36,7 +41,7 @@ return [
         ],
     ],
     'ewallet' => [
-        'aktif' => true,
+        'aktif' => false,
         'akun' => [
             ['nama' => 'DANA',   'nomor' => '081234567890', 'atas_nama' => 'Rica Dabu'],
             ['nama' => 'GoPay',  'nomor' => '081234567890', 'atas_nama' => 'Rica Dabu'],

@@ -8,20 +8,23 @@ $isDrink = $m['category'] === 'Minuman';
 $isFood  = $m['category'] === 'Makanan';
 $title = $m['name'] . ' – Rica Dabu';
 $css = ['detail'];
+$navOn = 'home';
 $js  = ['common', 'detail'];
 include __DIR__ . '/includes/header.php';
 ?>
 <section id="detail" data-id="<?= (int)$m['id'] ?>" data-name="<?= e($m['name']) ?>" data-price="<?= (int)$m['price'] ?>">
   <header class="top">
-    <a class="bk" href="menu.php" aria-label="Kembali" style="text-decoration:none;display:grid;place-items:center">←</a>
-    <div class="br"><img src="assets/images/logoricadabu.png" alt=""><b>Detail Menu</b></div>
-    <a class="av" href="profil.php" aria-label="Profil"><svg viewBox="0 0 24 24" width="18" fill="#fff"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></a>
+    <a class="bk" href="menu.php" aria-label="Kembali ke menu"><?= icon('back') ?></a>
+    <div class="br"><b><?= e($m['category']) ?></b></div>
+    <button class="ib" id="fav" aria-label="Favorit">♡</button>
   </header>
   <div class="db">
-    <div class="sp"><span class="chip gy">🍴 Khas Manado Asli</span><button class="ib" id="fav" aria-label="Favorit">♡</button></div>
-    <div class="hp"><?= photo($m) ?>
+    <div class="dl">
+    <div class="hp"><?= photo($m) ?><span class="chip hc">🍴 Khas Manado Asli</span>
       <?php if (!empty($x['top'])): ?><em class="pd lg2">🔥 Terlaris</em><?php endif; ?>
       <?php if (!empty($x['rate'])): ?><span class="rt">⭐ <?= e($x['rate']) ?></span><?php endif; ?></div>
+    </div>
+    <div class="dr">
     <h1 id="dName"><?= e($m['name']) ?></h1>
     <div class="pr"><b><?= rp($m['price']) ?></b><?php if (!empty($x['old'])): ?><s><?= rp($x['old']) ?></s><?php endif; ?></div>
     <div class="tg">
@@ -50,10 +53,11 @@ include __DIR__ . '/includes/header.php';
 <?php endif; ?>
     <h4>📝 Catatan untuk Dapur</h4>
     <div class="nt"><textarea id="note" rows="3" maxlength="120" placeholder="Contoh: Jeruk peras dipisah, kurangi minyak, sambal banyak tomat..."></textarea><small id="cnt">Maks. 120 huruf</small></div>
-  </div>
   <div class="buy">
     <div class="qty"><button id="minus" aria-label="Kurangi">−</button><b id="qty">1</b><button id="plus" aria-label="Tambah">+</button></div>
     <button class="red" id="addCart"></button>
+  </div>
+    </div>
   </div>
 </section>
 <?php include __DIR__ . '/includes/footer.php'; ?>
